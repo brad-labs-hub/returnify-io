@@ -1,5 +1,5 @@
-'use client';
-
+import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -12,9 +12,11 @@ import {
   ArrowRight,
   CheckCircle,
   Truck,
+  LogOut,
 } from 'lucide-react';
+import { SignOutButton } from '@/components/shared/SignOutButton';
 
-// Mock data - would come from Supabase
+// Mock data - will be replaced with real Supabase queries
 const upcomingPickups = [
   {
     id: '1',
@@ -53,7 +55,26 @@ const recentActivity = [
   },
 ];
 
-export default function CustomerDashboard() {
+export default async function CustomerDashboard() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect('/login');
+  }
+
+  // Get user profile
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .single();
+
+  const displayName = profile?.full_name || user.email?.split('@')[0] || 'there';
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -62,14 +83,17 @@ export default function CustomerDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-              <p className="text-gray-500 mt-1">Welcome back! Here&apos;s your return activity.</p>
+              <p className="text-gray-500 mt-1">Welcome back, {displayName}!</p>
             </div>
-            <Link href="/schedule-pickup">
-              <Button variant="primary">
-                <Plus className="h-4 w-4 mr-2" />
-                Schedule Pickup
-              </Button>
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/schedule-pickup">
+                <Button variant="primary">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Schedule Pickup
+                </Button>
+              </Link>
+              <SignOutButton />
+            </div>
           </div>
         </div>
       </header>
@@ -113,7 +137,7 @@ export default function CustomerDashboard() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Subscription</p>
-                  <p className="text-lg font-semibold text-gray-900">Weekly Plan</p>
+                  <p className="text-lg font-semibold text-gray-900">No Plan</p>
                 </div>
               </div>
             </CardContent>
