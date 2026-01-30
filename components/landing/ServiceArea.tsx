@@ -8,54 +8,66 @@ const areas = [
   { name: 'Darien', available: true },
 ];
 
+// Service area markers with coordinates positioned on the map
+const markers = [
+  { name: 'Greenwich', top: '58%', left: '25%' },
+  { name: 'Stamford', top: '48%', left: '48%' },
+  { name: 'Darien', top: '42%', left: '68%' },
+];
+
 export function ServiceArea() {
+  // OpenStreetMap static tile centered on Fairfield County, CT
+  // Using Mapbox static API (free tier) - centered on Stamford area
+  const mapUrl = `https://api.mapbox.com/styles/v1/mapbox/light-v11/static/-73.5387,41.0792,10.5,0/600x450@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw`;
+
+  // Fallback to OpenStreetMap tiles via iframe if needed
+  const osmEmbedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=-73.75%2C40.95%2C-73.35%2C41.15&layer=mapnik`;
+
   return (
     <section id="service-area" className="py-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Map placeholder */}
+          {/* Map with real background */}
           <div className="relative">
-            <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#2563eb]/5 to-[#10b981]/5 border border-gray-100 overflow-hidden">
-              {/* Stylized map representation */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative">
-                  {/* Connecticut outline representation */}
-                  <div className="w-64 h-48 bg-[#2563eb]/10 rounded-3xl relative">
-                    {/* Service area markers */}
-                    {[
-                      { name: 'Greenwich', top: '60%', left: '20%' },
-                      { name: 'Stamford', top: '50%', left: '45%' },
-                      { name: 'Darien', top: '40%', left: '70%' },
-                    ].map((city) => (
-                      <div
-                        key={city.name}
-                        className="absolute flex flex-col items-center"
-                        style={{ top: city.top, left: city.left }}
-                      >
-                        <div className="w-4 h-4 bg-[#10b981] rounded-full animate-pulse shadow-lg" />
-                        <span className="mt-1 text-xs font-medium text-gray-700 whitespace-nowrap">
-                          {city.name}
-                        </span>
-                      </div>
-                    ))}
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+              {/* Real map background using iframe */}
+              <iframe
+                src={osmEmbedUrl}
+                className="absolute inset-0 w-full h-full border-0"
+                style={{ filter: 'saturate(0.8) brightness(1.05)' }}
+                loading="lazy"
+                title="Service Area Map"
+              />
 
-                    {/* Decorative elements */}
-                    <div className="absolute top-2 right-2 text-xs text-gray-400 font-medium">
-                      Fairfield County, CT
+              {/* Overlay for markers */}
+              <div className="absolute inset-0 pointer-events-none">
+                {/* Semi-transparent overlay to make markers pop */}
+                <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent" />
+
+                {/* Service area markers */}
+                {markers.map((city) => (
+                  <div
+                    key={city.name}
+                    className="absolute flex flex-col items-center transform -translate-x-1/2 -translate-y-1/2"
+                    style={{ top: city.top, left: city.left }}
+                  >
+                    {/* Pulse ring */}
+                    <div className="absolute w-8 h-8 bg-[#10b981]/30 rounded-full animate-ping" />
+                    {/* Marker dot */}
+                    <div className="relative w-5 h-5 bg-[#10b981] rounded-full shadow-lg border-2 border-white" />
+                    {/* Label */}
+                    <div className="mt-2 px-2 py-1 bg-white/95 rounded-md shadow-md">
+                      <span className="text-xs font-semibold text-gray-800 whitespace-nowrap">
+                        {city.name}
+                      </span>
                     </div>
                   </div>
-                </div>
-              </div>
+                ))}
 
-              {/* Map-like grid lines */}
-              <div className="absolute inset-0 opacity-10">
-                <div className="h-full w-full" style={{
-                  backgroundImage: `
-                    linear-gradient(to right, #2563eb 1px, transparent 1px),
-                    linear-gradient(to bottom, #2563eb 1px, transparent 1px)
-                  `,
-                  backgroundSize: '40px 40px'
-                }} />
+                {/* Service area badge */}
+                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md">
+                  <span className="text-xs font-semibold text-gray-600">Fairfield County, CT</span>
+                </div>
               </div>
             </div>
           </div>
