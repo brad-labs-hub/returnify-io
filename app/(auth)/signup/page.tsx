@@ -27,27 +27,39 @@ export default function SignUpPage() {
 
     const supabase = createClient();
 
-    const { error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
-        data: {
-          full_name: fullName,
-          phone: phone || null,
+    try {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          data: {
+            full_name: fullName,
+            phone: phone || null,
+          },
         },
-      },
-    });
+      });
 
-    if (signUpError) {
-      setError(signUpError.message);
+      if (signUpError) {
+        setError(signUpError.message);
+        setIsLoading(false);
+        return;
+      }
+
+      // Check if email confirmation is required
+      if (data?.user?.identities?.length === 0) {
+        setError('An account with this email already exists.');
+        setIsLoading(false);
+        return;
+      }
+
+      // Redirect to dashboard
+      router.push('/dashboard');
+      router.refresh();
+    } catch (err) {
+      setError('Something went wrong. Please check your connection and try again.');
       setIsLoading(false);
-      return;
     }
-
-    // Redirect to dashboard (or show confirmation message for email verification)
-    router.push('/dashboard');
-    router.refresh();
   };
 
   return (
