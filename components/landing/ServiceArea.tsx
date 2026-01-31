@@ -1,7 +1,6 @@
 'use client';
 
 import { MapPin, CheckCircle } from 'lucide-react';
-import Image from 'next/image';
 
 const areas = [
   { name: 'Greenwich', available: true },
@@ -11,37 +10,30 @@ const areas = [
 
 // Service area markers positioned on the static map
 const markers = [
-  { name: 'Greenwich', top: '62%', left: '22%' },
-  { name: 'Stamford', top: '52%', left: '50%' },
-  { name: 'Darien', top: '45%', left: '72%' },
+  { name: 'Greenwich', top: '65%', left: '30%' },
+  { name: 'Stamford', top: '50%', left: '55%' },
+  { name: 'Darien', top: '40%', left: '75%' },
 ];
 
 export function ServiceArea() {
-  // Static map image from OpenStreetMap - Fairfield County area
-  // Centered on Greenwich/Stamford/Darien area at zoom level showing just those towns
-  const staticMapUrl = 'https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=450&center=lonlat:-73.54,41.05&zoom=11&apiKey=demo';
-
   return (
     <section id="service-area" className="py-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Static Map */}
           <div className="relative">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-gray-100">
-              {/* Static map background image */}
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                  backgroundImage: `url('https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/-73.54,41.05,10.8,0/600x450@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')`,
-                  filter: 'saturate(0.9) brightness(1.02)'
-                }}
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+              {/* OpenStreetMap iframe - static display */}
+              <iframe
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-73.75%2C40.98%2C-73.35%2C41.15&layer=mapnik&marker=41.05%2C-73.54"
+                className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+                style={{ filter: 'saturate(0.85) brightness(1.0)' }}
+                loading="eager"
+                title="Service Area Map"
               />
 
-              {/* Overlay for markers */}
+              {/* Overlay for markers - blocks interaction */}
               <div className="absolute inset-0">
-                {/* Light overlay to make markers stand out */}
-                <div className="absolute inset-0 bg-white/10" />
-
                 {/* Service area markers */}
                 {markers.map((city) => (
                   <div
