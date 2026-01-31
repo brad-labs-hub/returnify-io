@@ -76,7 +76,7 @@ function LoginForm() {
                 name="email"
                 type="email"
                 required
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all"
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-400"
                 placeholder="you@example.com"
               />
             </div>
@@ -93,7 +93,7 @@ function LoginForm() {
                 name="password"
                 type={showPassword ? 'text' : 'password'}
                 required
-                className="w-full pl-10 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all"
+                className="w-full pl-10 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-400"
                 placeholder="Enter your password"
               />
               <button

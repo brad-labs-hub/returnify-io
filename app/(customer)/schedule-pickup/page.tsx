@@ -141,8 +141,8 @@ export default function SchedulePickupPage() {
                       onClick={() => setSelectedDate(date.value)}
                       className={`p-3 rounded-lg border text-center transition-all ${
                         selectedDate === date.value
-                          ? 'border-[#2563eb] bg-[#2563eb]/5 text-[#2563eb]'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-[#2563eb] bg-[#2563eb]/5 text-[#2563eb] font-semibold'
+                          : 'border-gray-200 hover:border-gray-300 text-gray-700'
                       }`}
                     >
                       <span className="text-sm font-medium">{date.label}</span>
@@ -162,8 +162,8 @@ export default function SchedulePickupPage() {
                       onClick={() => setSelectedTime(slot)}
                       className={`p-3 rounded-lg border text-center transition-all ${
                         selectedTime === slot
-                          ? 'border-[#2563eb] bg-[#2563eb]/5 text-[#2563eb]'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-[#2563eb] bg-[#2563eb]/5 text-[#2563eb] font-semibold'
+                          : 'border-gray-200 hover:border-gray-300 text-gray-700'
                       }`}
                     >
                       <span className="text-sm font-medium">{slot}</span>

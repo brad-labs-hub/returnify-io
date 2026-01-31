@@ -96,7 +96,7 @@ export default function SignUpPage() {
                   name="name"
                   type="text"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-400"
                   placeholder="John Doe"
                 />
               </div>
@@ -113,7 +113,7 @@ export default function SignUpPage() {
                   name="email"
                   type="email"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-400"
                   placeholder="you@example.com"
                 />
               </div>
@@ -129,7 +129,7 @@ export default function SignUpPage() {
                   id="phone"
                   name="phone"
                   type="tel"
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-400"
                   placeholder="(555) 123-4567"
                 />
               </div>
@@ -147,7 +147,7 @@ export default function SignUpPage() {
                   type={showPassword ? 'text' : 'password'}
                   required
                   minLength={8}
-                  className="w-full pl-10 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all"
+                  className="w-full pl-10 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-400"
                   placeholder="Create a password"
                 />
                 <button
