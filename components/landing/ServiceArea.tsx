@@ -1,6 +1,7 @@
 'use client';
 
 import { MapPin, CheckCircle } from 'lucide-react';
+import Image from 'next/image';
 
 const areas = [
   { name: 'Greenwich', available: true },
@@ -8,41 +9,38 @@ const areas = [
   { name: 'Darien', available: true },
 ];
 
-// Service area markers with coordinates positioned on the map
+// Service area markers positioned on the static map
 const markers = [
-  { name: 'Greenwich', top: '58%', left: '25%' },
-  { name: 'Stamford', top: '48%', left: '48%' },
-  { name: 'Darien', top: '42%', left: '68%' },
+  { name: 'Greenwich', top: '62%', left: '22%' },
+  { name: 'Stamford', top: '52%', left: '50%' },
+  { name: 'Darien', top: '45%', left: '72%' },
 ];
 
 export function ServiceArea() {
-  // OpenStreetMap static tile centered on Fairfield County, CT
-  // Using Mapbox static API (free tier) - centered on Stamford area
-  const mapUrl = `https://api.mapbox.com/styles/v1/mapbox/light-v11/static/-73.5387,41.0792,10.5,0/600x450@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw`;
-
-  // Fallback to OpenStreetMap tiles via iframe if needed
-  const osmEmbedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=-73.75%2C40.95%2C-73.35%2C41.15&layer=mapnik`;
+  // Static map image from OpenStreetMap - Fairfield County area
+  // Centered on Greenwich/Stamford/Darien area at zoom level showing just those towns
+  const staticMapUrl = 'https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=450&center=lonlat:-73.54,41.05&zoom=11&apiKey=demo';
 
   return (
     <section id="service-area" className="py-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Map with real background */}
+          {/* Static Map */}
           <div className="relative">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-              {/* Real map background using iframe */}
-              <iframe
-                src={osmEmbedUrl}
-                className="absolute inset-0 w-full h-full border-0"
-                style={{ filter: 'saturate(0.8) brightness(1.05)' }}
-                loading="lazy"
-                title="Service Area Map"
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-gray-100">
+              {/* Static map background image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url('https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/-73.54,41.05,10.8,0/600x450@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')`,
+                  filter: 'saturate(0.9) brightness(1.02)'
+                }}
               />
 
               {/* Overlay for markers */}
-              <div className="absolute inset-0 pointer-events-none">
-                {/* Semi-transparent overlay to make markers pop */}
-                <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent" />
+              <div className="absolute inset-0">
+                {/* Light overlay to make markers stand out */}
+                <div className="absolute inset-0 bg-white/10" />
 
                 {/* Service area markers */}
                 {markers.map((city) => (
@@ -52,12 +50,14 @@ export function ServiceArea() {
                     style={{ top: city.top, left: city.left }}
                   >
                     {/* Pulse ring */}
-                    <div className="absolute w-8 h-8 bg-[#10b981]/30 rounded-full animate-ping" />
+                    <div className="absolute w-10 h-10 bg-[#10b981]/20 rounded-full animate-ping" />
+                    {/* Outer ring */}
+                    <div className="absolute w-7 h-7 bg-[#10b981]/30 rounded-full" />
                     {/* Marker dot */}
                     <div className="relative w-5 h-5 bg-[#10b981] rounded-full shadow-lg border-2 border-white" />
                     {/* Label */}
-                    <div className="mt-2 px-2 py-1 bg-white/95 rounded-md shadow-md">
-                      <span className="text-xs font-semibold text-gray-800 whitespace-nowrap">
+                    <div className="mt-2 px-3 py-1.5 bg-white rounded-lg shadow-lg border border-gray-100">
+                      <span className="text-sm font-bold text-gray-900 whitespace-nowrap">
                         {city.name}
                       </span>
                     </div>
@@ -65,8 +65,8 @@ export function ServiceArea() {
                 ))}
 
                 {/* Service area badge */}
-                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md">
-                  <span className="text-xs font-semibold text-gray-600">Fairfield County, CT</span>
+                <div className="absolute top-4 left-4 bg-white px-4 py-2 rounded-lg shadow-lg border border-gray-100">
+                  <span className="text-sm font-bold text-gray-700">Fairfield County, CT</span>
                 </div>
               </div>
             </div>
