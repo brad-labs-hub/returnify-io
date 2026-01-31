@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Package, Menu, X } from 'lucide-react';
 
 const navLinks = [
   { name: 'How It Works', href: '#how-it-works' },
@@ -36,15 +35,11 @@ export function Header() {
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logo.svg"
-              alt="Returnify"
-              width={140}
-              height={32}
-              className="h-8 w-auto"
-              priority
-            />
+          <Link href="/" className="flex items-center gap-2">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#2563eb]">
+              <Package className="h-5 w-5 text-white" />
+            </div>
+            <span className="text-xl font-bold text-gray-900">Returnify</span>
           </Link>
 
           {/* Desktop Navigation */}

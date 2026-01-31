@@ -2,12 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Mail, Lock, User, Phone, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { Package, Mail, Lock, User, Phone, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -67,15 +66,11 @@ export default function SignUpPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-green-50 px-4 py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <Link href="/" className="inline-flex items-center justify-center mb-4">
-            <Image
-              src="/logo.svg"
-              alt="Returnify"
-              width={160}
-              height={40}
-              className="h-10 w-auto"
-              priority
-            />
+          <Link href="/" className="inline-flex items-center justify-center gap-2 mb-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#2563eb]">
+              <Package className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-xl font-bold text-gray-900">Returnify</span>
           </Link>
           <CardTitle>Create your account</CardTitle>
           <CardDescription>Start scheduling your return pickups today</CardDescription>

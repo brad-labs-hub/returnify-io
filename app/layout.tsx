@@ -18,14 +18,6 @@ export const metadata: Metadata = {
     'We pick up your returns and drop them off at UPS, USPS, or FedEx. Serving Greenwich, Stamford, and Darien, CT.',
   keywords: ['returns', 'pickup service', 'UPS', 'USPS', 'FedEx', 'Greenwich', 'Stamford', 'Darien'],
   authors: [{ name: 'Returnify' }],
-  icons: {
-    icon: [
-      { url: '/logo-icon.svg', type: 'image/svg+xml' },
-    ],
-    apple: [
-      { url: '/logo-icon.svg', type: 'image/svg+xml' },
-    ],
-  },
   openGraph: {
     title: 'Returnify - Never Deal With Returns Again',
     description: 'We pick up your returns and drop them off at UPS, USPS, or FedEx.',

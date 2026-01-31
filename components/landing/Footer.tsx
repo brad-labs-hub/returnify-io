@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { Mail, MapPin, Twitter, Instagram, Facebook } from 'lucide-react';
+import { Package, Mail, MapPin, Twitter, Instagram, Facebook } from 'lucide-react';
 
 const footerLinks = {
   company: [
@@ -37,14 +36,11 @@ export function Footer() {
         <div className="py-12 grid gap-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/logo-white.svg"
-                alt="Returnify"
-                width={160}
-                height={40}
-                className="h-10 w-auto"
-              />
+            <Link href="/" className="flex items-center gap-2">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#2563eb]">
+                <Package className="h-6 w-6 text-white" />
+              </div>
+              <span className="text-xl font-bold text-white">Returnify</span>
             </Link>
 
             <p className="mt-4 text-sm text-gray-400 max-w-xs">

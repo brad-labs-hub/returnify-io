@@ -1,9 +1,0 @@
-<svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Logo Icon - Dark rounded square with return arrow -->
-  <rect x="0" y="0" width="40" height="40" rx="8" fill="#1e293b"/>
-  <!-- Return arrow icon -->
-  <path d="M28 16H16.83L20.41 12.41L19 11L13 17L19 23L20.41 21.59L16.83 18H28V16Z" fill="#10b981"/>
-  <path d="M12 28H28V20H26V26H12V14H18V12H12C10.9 12 10 12.9 10 14V26C10 27.1 10.9 28 12 28Z" fill="#10b981"/>
-  <!-- Returnify text (white for dark backgrounds) -->
-  <text x="50" y="27" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#ffffff">Returnify</text>
-</svg>
