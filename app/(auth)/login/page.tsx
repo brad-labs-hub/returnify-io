@@ -2,11 +2,12 @@
 
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Package, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
 function LoginForm() {
   const router = useRouter();
@@ -46,11 +47,15 @@ function LoginForm() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="text-center">
-        <Link href="/" className="inline-flex items-center justify-center gap-2 mb-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#2563eb]">
-            <Package className="h-6 w-6 text-white" />
-          </div>
-          <span className="text-xl font-bold text-gray-900">Returnify</span>
+        <Link href="/" className="inline-flex items-center justify-center mb-4">
+          <Image
+            src="/logo.svg"
+            alt="Returnify"
+            width={160}
+            height={40}
+            className="h-10 w-auto"
+            priority
+          />
         </Link>
         <CardTitle>Welcome back</CardTitle>
         <CardDescription>Sign in to your account to continue</CardDescription>
