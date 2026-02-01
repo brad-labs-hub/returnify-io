@@ -4,15 +4,14 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { SubscriptionStatus } from '@/components/payment/SubscriptionStatus';
 import {
   Package,
   Calendar,
-  Clock,
   Plus,
   ArrowRight,
   CheckCircle,
   Truck,
-  LogOut,
 } from 'lucide-react';
 import { SignOutButton } from '@/components/shared/SignOutButton';
 
@@ -73,7 +72,48 @@ export default async function CustomerDashboard() {
     .eq('id', user.id)
     .single();
 
+  // Get user's active subscription with plan details
+  const { data: subscriptionData } = await supabase
+    .from('subscriptions')
+    .select(`
+      id,
+      status,
+      current_period_end,
+      cancelled_at,
+      paused_at,
+      plan_id
+    `)
+    .eq('user_id', user.id)
+    .in('status', ['active', 'paused'])
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single();
+
+  // Get plan details if subscription exists
+  let planDetails: { name: string; price: number } | null = null;
+  if (subscriptionData?.plan_id) {
+    const { data: plan } = await supabase
+      .from('subscription_plans')
+      .select('name, price')
+      .eq('id', subscriptionData.plan_id)
+      .single();
+    planDetails = plan;
+  }
+
   const displayName = profile?.full_name || user.email?.split('@')[0] || 'there';
+
+  // Format subscription for component
+  const subscription = subscriptionData
+    ? {
+        id: subscriptionData.id,
+        status: subscriptionData.status as 'active' | 'paused' | 'cancelled' | 'expired',
+        planName: planDetails?.name || 'Unknown Plan',
+        planPrice: planDetails?.price || 0,
+        currentPeriodEnd: subscriptionData.current_period_end,
+        cancelledAt: subscriptionData.cancelled_at,
+        pausedAt: subscriptionData.paused_at,
+      }
+    : null;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -129,19 +169,8 @@ export default async function CustomerDashboard() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#f59e0b]/10">
-                  <Clock className="h-6 w-6 text-[#f59e0b]" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Subscription</p>
-                  <p className="text-lg font-semibold text-gray-900">No Plan</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Subscription Status Card */}
+          <SubscriptionStatus subscription={subscription} />
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
